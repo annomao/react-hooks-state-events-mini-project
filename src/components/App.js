@@ -13,9 +13,13 @@ function App() {
 
   function handleDeleteTask(deletedTask){
     const newTaskList = tasks.filter((task)=>{
-      return task.text !== deletedTask.text
+      return task.text !== deletedTask
     })
     setTask(newTaskList)
+  }
+
+  function handleAddTask(newTask){
+    setTask([...tasks,newTask])
   }
   
   const displayTaskList = tasks.filter((task)=>{
@@ -32,7 +36,7 @@ function App() {
     <div className="App">
       <h2>My tasks</h2>
       <CategoryFilter categories={CATEGORIES} Scategory={category} onCategoryClick={setCategory}/>
-      <NewTaskForm />
+      <NewTaskForm categories={CATEGORIES} onTaskFormSubmit={handleAddTask}/>
       <TaskList tasks={displayTaskList} onDeleteTask={handleDeleteTask}/>
     </div>
   );
