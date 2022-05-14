@@ -9,6 +9,7 @@ console.log({ CATEGORIES, TASKS });
 
 function App() {
   const [tasks, setTask] = useState(TASKS)
+  const [category , setCategory] = useState("All")
 
   function handleDeleteTask(deletedTask){
     const newTaskList = tasks.filter((task)=>{
@@ -16,14 +17,23 @@ function App() {
     })
     setTask(newTaskList)
   }
+  
+  const displayTaskList = tasks.filter((task)=>{
+    if(category === "All"){
+      return true
+    }else{
+      return task.category === category
+    }
+  })
+
 
   
   return (
     <div className="App">
       <h2>My tasks</h2>
-      <CategoryFilter />
+      <CategoryFilter categories={CATEGORIES} Scategory={category} onCategoryClick={setCategory}/>
       <NewTaskForm />
-      <TaskList tasks={tasks} onDeleteTask={handleDeleteTask}/>
+      <TaskList tasks={displayTaskList} onDeleteTask={handleDeleteTask}/>
     </div>
   );
 }
